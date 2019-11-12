@@ -1323,7 +1323,9 @@ export const Constants = {
     AUTOCOMPLETE_SPLIT_CHARACTERS: ['.', '-', '_'],
     ANIMATION_TIMEOUT: 1000,
     SEARCH_TIMEOUT_MILLISECONDS: 100,
-    DIAGNOSTICS_SEGMENT_KEY: 'placeholder_segment_key',
+    DIAGNOSTICS_SEGMENT_KEY: 'edwmJMLj2cMXrGHgCCnLqCXL4NN114UV',
+    DIAGNOSTICS_RUDDER_KEY: '1SuZEl2bawQm274slpZs9y6NdCi',
+
     TEAMMATE_NAME_DISPLAY: {
         SHOW_USERNAME: 'username',
         SHOW_NICKNAME_FULLNAME: 'nickname_full_name',

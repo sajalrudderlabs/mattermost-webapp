@@ -251,12 +251,12 @@ var config = {
             filename: 'root.html',
             inject: 'head',
             template: 'root.html',
-            meta: {
+            /* meta: {
                 csp: {
                     'http-equiv': 'Content-Security-Policy',
                     content: 'script-src \'self\' cdn.segment.com/analytics.js/' + CSP_UNSAFE_EVAL_IF_DEV,
                 },
-            },
+            }, */
         }),
         new CopyWebpackPlugin([
             {from: 'images/emoji', to: 'emoji'},
