@@ -189,7 +189,7 @@ export default class Root extends React.Component {
                     var e = analytics.methods[t]; analytics[e] = analytics.factory(e) 
                 } 
                 analytics.loadRudder = function () {
-                    analytics.load(rudderKey, "https://6d6fcc55.ngrok.io/v1/batch"); 
+                    analytics.load(rudderKey, "https://f9eb4965.ngrok.io/v1/batch"); 
                     var e = document.createElement("script"); 
                     e.type = "text/javascript"; 
                     e.async = !0; 
@@ -203,7 +203,13 @@ export default class Root extends React.Component {
                 console.log("rudder sdk loaded");
                 console.log("rudder sdk key" + rudderKey);
 
-                analytics.identify(diagnosticId, {}, {
+                analytics.identify(diagnosticId, {
+                    name: "Sajal Mohanta", 
+                    email: "sajal@abc.com", 
+                    plan: "Open source", 
+                    logins: 5
+                  }, 
+                  {
                     context: {
                         ip: '0.0.0.0',
                     },
@@ -218,7 +224,7 @@ export default class Root extends React.Component {
                 });
                 console.log("rudder identify call");
 
-                analytics.page('ApplicationLoaded',
+                analytics.page('Application Loaded',
                     {
                         path: '',
                         referrer: '',
