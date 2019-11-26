@@ -160,10 +160,9 @@ export default class Root extends React.Component {
         const rudderKey = Constants.DIAGNOSTICS_RUDDER_KEY;
         const diagnosticId = this.props.diagnosticId;
 
-        // rudder part start
         if (rudderKey != null && rudderKey !== '' && !rudderKey.startsWith('placeholder') && this.props.diagnosticsEnabled) {
             !function () {
-                
+
                 var methods = [
                     "load",
                     "page",
@@ -178,52 +177,45 @@ export default class Root extends React.Component {
                 var analytics = global.window.analytics = global.window.analytics || [];
                 analytics.methods = methods;
                 analytics.factory = function (t) {
-                    return function (...args) { 
-                        var e = Array.prototype.slice.call(args); 
-                        e.unshift(t); 
-                        analytics.push(e); 
-                        return analytics 
-                    } 
-                }; 
-                for (var t = 0; t < analytics.methods.length; t++) { 
-                    var e = analytics.methods[t]; analytics[e] = analytics.factory(e) 
-                } 
+                    return function (...args) {
+                        var e = Array.prototype.slice.call(args);
+                        e.unshift(t);
+                        analytics.push(e);
+                        return analytics
+                    }
+                };
+                for (var t = 0; t < analytics.methods.length; t++) {
+                    var e = analytics.methods[t]; analytics[e] = analytics.factory(e)
+                }
                 analytics.loadRudder = function () {
-                    analytics.load(rudderKey, "https://f9eb4965.ngrok.io/v1/batch"); 
-                    var e = document.createElement("script"); 
-                    e.type = "text/javascript"; 
-                    e.async = !0; 
-                    e.src = "https://unpkg.com/rudder-analytics@1.0.3/dist/browser.min.js"; 
-                    var n = document.getElementsByTagName("script")[0]; 
+                    analytics.load(rudderKey, "placeholder_for_rudder_backend_URL");
+                    var e = document.createElement("script");
+                    e.type = "text/javascript";
+                    e.async = !0;
+                    e.src = "https://cdn.rudderlabs.com/rudder.min.js";
+                    var n = document.getElementsByTagName("script")[0];
                     n.parentNode.insertBefore(e, n);
-                }; 
+                };
                 analytics.loadRudder();
-
-
-                console.log("rudder sdk loaded");
-                console.log("rudder sdk key" + rudderKey);
-
                 analytics.identify(diagnosticId, {
-                    name: "Sajal Mohanta", 
-                    email: "sajal@abc.com", 
-                    plan: "Open source", 
+                    name: "Sajal Mohanta",
+                    email: "sajal@abc.com",
+                    plan: "Open source",
                     logins: 5
-                  }, 
-                  {
-                    context: {
-                        ip: '0.0.0.0',
-                    },
-                    page: {
-                        path: '',
-                        referrer: '',
-                        search: '',
-                        title: '',
-                        url: '',
-                    },
-                    anonymousId: '00000000000000000000000000',
-                });
-                console.log("rudder identify call");
-
+                },
+                    {
+                        context: {
+                            ip: '0.0.0.0',
+                        },
+                        page: {
+                            path: '',
+                            referrer: '',
+                            search: '',
+                            title: '',
+                            url: '',
+                        },
+                        anonymousId: '00000000000000000000000000',
+                    });
                 analytics.page('Application Loaded',
                     {
                         path: '',
@@ -238,9 +230,6 @@ export default class Root extends React.Component {
                         },
                         anonymousId: '00000000000000000000000000'
                     });
-
-                console.log("rudder page call");
-
                 analytics.track('Track Call',
                     {
                         path: '',
@@ -256,13 +245,10 @@ export default class Root extends React.Component {
                         anonymousId: '00000000000000000000000000'
                     });
             }();
+
+            console.log(analytics.initialized);
         }
-        // rudder part end
-
-
-        // segment part start
         /*eslint-disable */
-        /*
         if (segmentKey != null && segmentKey !== '' && !segmentKey.startsWith('placeholder') && this.props.diagnosticsEnabled) {
             !function () {
                 var analytics = global.window.analytics = global.window.analytics || [];
@@ -274,6 +260,63 @@ export default class Root extends React.Component {
                         analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "group", "track", "ready", "alias", "page", "once", "off", "on"];
                         analytics.factory = function (t) { return function (...args) { var e = Array.prototype.slice.call(args); e.unshift(t); analytics.push(e); return analytics } }; for (var t = 0; t < analytics.methods.length; t++) { var e = analytics.methods[t]; analytics[e] = analytics.factory(e) } analytics.load = function (t) { var e = document.createElement("script"); e.type = "text/javascript"; e.async = !0; e.src = ("https:" === document.location.protocol ? "https://" : "http://") + "cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js"; var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(e, n) }; analytics.SNIPPET_VERSION = "3.0.1";
                         analytics.load(segmentKey);
+
+                        analytics.page();
+                        analytics.identify(
+                            {
+                                name: "Tintin",
+                                city: "Brussels",
+                                country: "Belgium",
+                                email: "tintin@herge.com"
+                            },
+                            {
+                                context: {
+                                    ip: "0.0.0.0"
+                                },
+                                page: {
+                                    path: "",
+                                    referrer: "",
+                                    search: "",
+                                    title: "",
+                                    url: ""
+                                },
+                                anonymousId: "00000000000000000000000000"
+                            },
+                            () => {
+                                console.log("in identify tintin html");
+                            }
+                        );
+                        analytics.page(
+                            "ApplicationLoaded",
+                            {
+                                path: "",
+                                referrer: "",
+                                search: "",
+                                url: ""
+                            },
+                            {
+                                context: {
+                                    ip: "0.0.0.0"
+                                },
+                                anonymousId: "00000000000000000000000000"
+                            }
+                        );
+                        analytics.identify("123456");
+                        analytics.page(
+                            "Analytics Reset",
+                            {
+                                path: "new",
+                                referrer: "none",
+                                search: "/new",
+                                url: "//"
+                            },
+                            {
+                                context: {
+                                    ip: "0.0.0.0"
+                                },
+                                anonymousId: "00000000000000000000000000"
+                            }
+                        );
 
                         analytics.identify(diagnosticId, {}, {
                             context: {
@@ -288,6 +331,30 @@ export default class Root extends React.Component {
                             },
                             anonymousId: '00000000000000000000000000',
                         });
+
+                        analytics.track(Object.assign({
+                            event: 'event',
+                            userId: "1234"
+                        },
+                            {
+                                path1: '',
+                                referrer1: '',
+                                search1: '',
+                                title1: '',
+                                url1: '',
+                            }, {
+                            context: {
+                                ip: '0.0.0.0',
+                            },
+                            page: {
+                                path: '',
+                                referrer: '',
+                                search: '',
+                                title: '',
+                                url: '',
+                            },
+                            anonymousId: '00000000000000000000000000',
+                        }));
 
                         analytics.page('ApplicationLoaded', {
                             path: '',
@@ -305,8 +372,6 @@ export default class Root extends React.Component {
                     }
             }();
         }
-        */
-        // segment part end
         /*eslint-enable */
 
         const afterIntl = () => {
